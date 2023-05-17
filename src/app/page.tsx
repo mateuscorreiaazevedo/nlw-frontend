@@ -1,8 +1,14 @@
 
 export default function Home () {
   return (
-    <>
-      <h1 className="text-4xl font-bold">Sua cápsula do tempo</h1>
-    </>
+    <div className="flex flex-1 items-center justify-center">
+      <p className="text-center leading-relaxed w-[360px]">
+        Você ainda não registrou nenhuma lembrança, comece a{' '}
+        <a href="" className="underline hover:text-gray-50">
+          criar agora
+        </a>
+        !
+      </p>
+    </div>
   )
 }

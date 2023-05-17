@@ -1,17 +1,41 @@
-import { Roboto } from 'next/font/google'
-import '../assets/styles/globals.css'
+import { Roboto_Flex as Roboto, Montserrat } from 'next/font/google'
+import './globals.css'
 
-const font = Roboto({ subsets: ['latin'], weight: ['400'] })
+import { SignIn, Hero, Footer } from '@/modules/core'
+import { BackgroundBlur, Stripes } from '@/main/ui'
+
+import { ReactNode } from 'react'
+
+const roboto = Roboto({ subsets: ['latin'], variable: '--font-roboto' })
+
+const baiJamjuree = Montserrat({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-montserrat'
+})
 
 export const metadata = {
-  title: 'NLW - Spacetime',
-  description: 'Next Level Week - Rocketseat'
+  title: 'NLW Spacetime',
+  description: 'Uma cápsula do tempo construída com React, Next.js, TailwindCSS e Typescript.'
 }
 
-export default function RootLayout ({ children }: { children: React.ReactNode }) {
+export default function RootLayout ({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className={font.className}>
-      <body className='bg-zinc-950 text-white w-full min-h-screen'>{children}</body>
+    <html lang="en">
+      <body className={`${roboto.variable} ${baiJamjuree.variable} bg-gray-900 font-sans text-gray-100`}>
+        <main className="grid grid-cols-2 min-h-screen">
+          <section className="relative flex flex-col items-start justify-between px-28 py-16 overflow-hidden border-r border-white/10 bg-cover bg-[url(../assets/images/bg-stars.svg)]">
+            <SignIn />
+            <Hero />
+            <Footer />
+            <BackgroundBlur />
+            <Stripes />
+          </section>
+          <section className="flex flex-col p-16 bg-cover bg-[url(../assets/images/bg-stars.svg)]">
+            {children}
+          </section>
+        </main>
+      </body>
     </html>
   )
 }
