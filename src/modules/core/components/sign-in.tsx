@@ -1,9 +1,10 @@
+import { env } from '@/main/config'
 import { User } from 'lucide-react'
 import React from 'react'
 
 export const SignIn = () => {
   return (
-    <a href="" className="flex items-center gap-3 text-left hover:text-gray-50 transition-colors">
+    <a href={`https://github.com/login/oauth/authorize?client_id=${env.githubId}`} className="flex items-center gap-3 text-left hover:text-gray-50 transition-colors">
       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-400">
         <User className="h-5 w-5 text-gray-500" />
       </div>
