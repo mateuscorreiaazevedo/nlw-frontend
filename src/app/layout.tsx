@@ -1,5 +1,5 @@
-import { Roboto_Flex as Roboto, Montserrat } from 'next/font/google'
-import './globals.css'
+import { Nunito, Montserrat } from 'next/font/google'
+import '../assets/globals.css'
 
 import { SignIn, Hero, Footer } from '@/modules/core'
 import { BackgroundBlur, Stripes } from '@/main/ui'
@@ -8,9 +8,9 @@ import { cookies } from 'next/headers'
 
 import { ReactNode } from 'react'
 
-const roboto = Roboto({
+const roboto = Nunito({
   subsets: ['latin'],
-  variable: '--font-roboto'
+  variable: '--font-nunito'
 })
 
 const baiJamjuree = Montserrat({
@@ -38,7 +38,9 @@ export default function RootLayout ({ children }: { children: ReactNode }) {
             <BackgroundBlur />
             <Stripes />
           </section>
-          <section className="flex flex-col p-16 bg-cover bg-[url(../assets/images/bg-stars.svg)]">{children}</section>
+          <section className="flex flex-col p-16 bg-cover bg-[url(../assets/images/bg-stars.svg)]">
+            {children}
+          </section>
         </main>
       </body>
     </html>

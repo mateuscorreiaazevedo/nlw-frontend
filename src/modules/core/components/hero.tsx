@@ -2,6 +2,7 @@ import React from 'react'
 
 import nlwLogo from '../../../assets/images/nlw-spacetime-logo.svg'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export const Hero = () => {
   return (
@@ -13,12 +14,12 @@ export const Hero = () => {
           Colecione momentos marcantes da sua jornada e compartilhe (se quiser) com o mundo!
         </p>
       </div>
-      <a
+      <Link
         className="inline-block font-black rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black"
-        href=""
+        href="/memories/new"
       >
         cadastrar lembrança
-      </a>
+      </Link>
     </div>
   )
 }

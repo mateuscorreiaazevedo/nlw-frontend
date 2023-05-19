@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: 'var(--font-roboto)',
+        sans: 'var(--font-nunito)',
         alt: 'var(--font-montserrat)'
       },
       colors: {
@@ -59,5 +59,7 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [
+    require('@tailwindcss/forms')
+  ]
 }
