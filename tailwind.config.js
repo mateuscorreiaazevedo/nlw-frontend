@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: 'var(--font-nunito)',
-        alt: 'var(--font-montserrat)'
+        sans: 'var(--font-main)',
+        alt: 'var(--font-alternate)'
       },
       colors: {
         gray: {

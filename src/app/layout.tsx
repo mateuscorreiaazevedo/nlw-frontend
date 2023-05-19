@@ -1,4 +1,4 @@
-import { Nunito, Montserrat } from 'next/font/google'
+import { Roboto_Flex as Main, Bai_Jamjuree as Alternate } from 'next/font/google'
 import '../assets/globals.css'
 
 import { SignIn, Hero, Footer } from '@/modules/core'
@@ -8,15 +8,15 @@ import { cookies } from 'next/headers'
 
 import { ReactNode } from 'react'
 
-const roboto = Nunito({
+const main = Main({
   subsets: ['latin'],
-  variable: '--font-nunito'
+  variable: '--font-main'
 })
 
-const baiJamjuree = Montserrat({
+const alternate = Alternate({
   subsets: ['latin'],
-  weight: ['700'],
-  variable: '--font-montserrat'
+  weight: '700',
+  variable: '--font-alternate'
 })
 
 export const metadata = {
@@ -29,7 +29,7 @@ export default function RootLayout ({ children }: { children: ReactNode }) {
 
   return (
     <html lang="en">
-      <body className={`${roboto.variable} ${baiJamjuree.variable} bg-gray-900 font-sans text-gray-100`}>
+      <body className={`${main.variable} ${alternate.variable} bg-gray-900 font-sans text-gray-100`}>
         <main className="grid grid-cols-2 min-h-screen">
           <section className="relative flex flex-col items-start justify-between px-28 py-16 overflow-hidden border-r border-white/10 bg-cover bg-[url(../assets/images/bg-stars.svg)]">
             {isAuthenticated ? <Profile /> : <SignIn />}
