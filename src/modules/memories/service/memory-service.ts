@@ -70,6 +70,29 @@ class MemoryService extends Service {
         throw new Error(response.code.toString())
     }
   }
+
+  async delete (id: string) {
+    const response = await this.request({
+      url: `/memories/${id}`,
+      method: 'delete',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    switch (response.code) {
+      case 200:
+        return response.body
+      case 400:
+        throw new Error(response.body?.message)
+      case 401:
+        throw new Error(response.body?.message)
+      case 500:
+        throw new Error(response.body?.message)
+      default:
+        throw new Error(response.code.toString())
+    }
+  }
 }
 
 export const memoryService = new MemoryService()

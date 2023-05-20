@@ -1,7 +1,8 @@
-import { ArrowRight } from 'lucide-react'
-import { memoryService } from '@/modules/memories'
+import { DeleteMemory, memoryService } from '@/modules/memories'
+import { ArrowRight, MoreHorizontal } from 'lucide-react'
 import { EmptyMemories } from '@/modules/core'
 import { cookies } from 'next/headers'
+import { Popover } from '@/main/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 import dayjs from 'dayjs'
@@ -24,16 +25,32 @@ export default async function Home () {
     <div className="flex flex-col gap-10">
       {memories?.map(memory => (
         <div key={memory.id} className="space-y-4">
-          <time className="flex font-alt items-center gap-2 text-sm text-gray-100 -ml-8 before:h-px before:w-5 before:bg-gray-50">
-            {dayjs(memory.createdAt).format('D[ de ]MMMM[, ]YYYY')}
-          </time>
-          <Image
-            src={memory.coverUrl}
-            alt=""
-            width={592}
-            height={280}
-            className="w-full aspect-video object-cover rounded-lg"
-          />
+          <div className="flex items-center justify-between">
+            <time className="flex font-alt items-center gap-2 text-sm text-gray-100 -ml-8 before:h-px before:w-5 before:bg-gray-50">
+              {dayjs(memory.createdAt).format('D[ de ]MMMM[, ]YYYY')}
+            </time>
+            <Popover
+              className="bg-gray-700 rounded-lg mr-14 w-28 flex flex-col py-2"
+              button={
+                <button className="p-2 rounded-full active:bg-gray-600">
+                  <MoreHorizontal className="w-4 h-4 text-gray-200" />
+                </button>
+              }
+            >
+              <DeleteMemory id={memory.id} />
+            </Popover>
+          </div>
+
+          <div className="w-full aspect-video object-cover rounded-lg bg-gray-800">
+            <Image
+              src={memory.coverUrl}
+              alt=""
+              width={592}
+              height={280}
+              loading='lazy'
+              className="w-full aspect-video object-cover rounded-lg"
+            />
+          </div>
           <p className="text-lg leading-relaxed text-gray-100">{memory.excerpt}</p>
           <Link
             href={`/memories/${memory.id}`}
