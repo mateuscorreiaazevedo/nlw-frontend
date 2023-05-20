@@ -1,12 +1,21 @@
+// Font and Style
 import { Roboto_Flex as Main, Bai_Jamjuree as Alternate } from 'next/font/google'
 import '../assets/globals.css'
 
+// Components
 import { SignIn, Hero, Footer } from '@/modules/core'
 import { BackgroundBlur, Stripes } from '@/main/ui'
 import { Profile } from '@/modules/user'
-import { cookies } from 'next/headers'
 
+// Functions
+import { cookies } from 'next/headers'
 import { ReactNode } from 'react'
+
+// Dayjs
+import dayjs from 'dayjs'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+dayjs.locale(require('dayjs/locale/pt-br'))
 
 const main = Main({
   subsets: ['latin'],
@@ -38,7 +47,7 @@ export default function RootLayout ({ children }: { children: ReactNode }) {
             <BackgroundBlur />
             <Stripes />
           </section>
-          <section className="flex flex-col p-16 bg-cover bg-[url(../assets/images/bg-stars.svg)]">
+          <section className="flex flex-col max-h-screen overflow-y-scroll p-8 bg-cover bg-[url(../assets/images/bg-stars.svg)]">
             {children}
           </section>
         </main>

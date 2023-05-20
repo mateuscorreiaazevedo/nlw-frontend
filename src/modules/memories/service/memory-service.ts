@@ -1,5 +1,5 @@
 import { Service } from '@/modules/core'
-import Cookie from 'js-cookie'
+import Cookies from 'js-cookie'
 
 type FormMemoryProps = {
   content: string
@@ -7,7 +7,7 @@ type FormMemoryProps = {
   isPublic: string | null
 }
 
-const token = Cookie.get('token')
+const token = Cookies.get('token')
 
 class MemoryService extends Service {
   async uploadFile (fileForUpload: FormData) {
@@ -37,15 +37,37 @@ class MemoryService extends Service {
         isPublic
       },
       headers: {
+        Authorization: `Bearer ${token!}`
+      }
+    })
+
+    switch (response.code) {
+      case 200:
+        return response.body
+      default:
+        throw new Error('Falha no servidor, tente novamente mais tarde.')
+    }
+  }
+
+  async getAll (token: string) {
+    const response = await this.request<{ data: MemoryInfo[]; message?: string }>({
+      url: '/memories',
+      headers: {
         Authorization: `Bearer ${token}`
       }
     })
 
     switch (response.code) {
       case 200:
-        return response.body?.fileUrl
+        return response.body?.data
+      case 400:
+        throw new Error(response.body?.message)
+      case 401:
+        throw new Error(response.body?.message)
+      case 500:
+        throw new Error(response.body?.message)
       default:
-        throw new Error('Falha no servidor, tente novamente mais tarde.')
+        throw new Error(response.code.toString())
     }
   }
 }
