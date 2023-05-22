@@ -23,7 +23,7 @@ export const FormMediaPicker = ({ coverUrl }: Props) => {
 
   return (
     <>
-      <input defaultValue={coverUrl ?? ''} name='coverUrl' accept="image/*" type="file" id="media" className="hidden" onChange={onMediaSelected} />
+      <input name='coverUrl' accept="image/*" type="file" id="media" className="hidden" onChange={onMediaSelected} />
       {preview && <img src={preview} alt="" className="w-full aspect-video rounded-lg object-cover" />}
     </>
   )

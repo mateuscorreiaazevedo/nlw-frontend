@@ -13,7 +13,6 @@ import { ReactNode } from 'react'
 
 // Dayjs
 import dayjs from 'dayjs'
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 dayjs.locale(require('dayjs/locale/pt-br'))
 
@@ -37,7 +36,7 @@ export default function RootLayout ({ children }: { children: ReactNode }) {
   const isAuthenticated = cookies().has('token')
 
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body className={`${main.variable} ${alternate.variable} bg-gray-900 font-sans text-gray-100`}>
         <main className="grid grid-cols-2 min-h-screen">
           <section className="relative flex flex-col items-start justify-between px-28 py-16 overflow-hidden border-r border-white/10 bg-cover bg-[url(../assets/images/bg-stars.svg)]">

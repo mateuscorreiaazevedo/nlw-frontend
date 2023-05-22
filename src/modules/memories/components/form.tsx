@@ -24,13 +24,6 @@ export const Form = ({ memory }: Props) => {
     let coverUrl = memory?.coverUrl ?? ''
 
     try {
-      if (fileToUpload) {
-        const uploadFormData = new FormData()
-        uploadFormData.set('file', fileToUpload)
-
-        coverUrl = (await memoryService.uploadFile(uploadFormData)) as string
-      }
-
       if (memory) {
         await memoryService.editMemory(memory.id, {
           content,
@@ -38,6 +31,12 @@ export const Form = ({ memory }: Props) => {
           isPublic
         })
       } else {
+        if (fileToUpload) {
+          const uploadFormData = new FormData()
+          uploadFormData.set('file', fileToUpload)
+
+          coverUrl = (await memoryService.uploadFile(uploadFormData)) as string
+        }
         await memoryService.createMemory({
           content,
           coverUrl,

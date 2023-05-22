@@ -1,13 +1,13 @@
 import React from 'react'
 
-import nlwLogo from '../../../assets/images/nlw-spacetime-logo.svg'
+import { images as i } from '@/assets/images'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export const Hero = () => {
   return (
     <div className="space-y-5">
-      <Image src={nlwLogo} alt="Nlw Logo Image" width={160} height={48} />
+      <Image src={i.nlwLogo} alt="Nlw Logo Image" width={160} height={48} />
       <div className="max-w-[420px] space-y-1">
         <h1 className="mt-5 text-h1 font-bold leading-tight text-gray-50">Sua cápsula do tempo</h1>
         <p className="text-lg leading-relaxed">

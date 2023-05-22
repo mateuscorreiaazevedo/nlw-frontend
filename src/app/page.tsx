@@ -41,7 +41,7 @@ export default async function Home () {
             </Popover>
           </div>
 
-          <div className="w-full aspect-video object-cover rounded-lg bg-gray-800">
+          <div className="w-full aspect-video object-cover rounded-lg bg-gray-600">
             <Image
               src={memory.coverUrl}
               alt=""
