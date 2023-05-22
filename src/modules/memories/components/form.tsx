@@ -1,13 +1,17 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { memoryService } from '../service/memory-service'
 import { FormMediaPicker } from './form-media-picker'
+import { useRouter } from 'next/navigation'
 import { Camera } from 'lucide-react'
 import React from 'react'
 
-export const Form = () => {
-  const { push } = useRouter()
+interface Props {
+  memory?: Memory
+}
+
+export const Form = ({ memory }: Props) => {
+  const { replace } = useRouter()
 
   async function handleCreateMemory (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -17,22 +21,30 @@ export const Form = () => {
     const content = formData.get('content') as string
     const isPublic = formData.get('isPublic') as string | null
 
-    let coverUrl = ''
+    let coverUrl = memory?.coverUrl ?? ''
 
     try {
       if (fileToUpload) {
         const uploadFormData = new FormData()
         uploadFormData.set('file', fileToUpload)
 
-        coverUrl = await memoryService.uploadFile(uploadFormData) as string
+        coverUrl = (await memoryService.uploadFile(uploadFormData)) as string
       }
 
-      await memoryService.createMemory({
-        content,
-        coverUrl,
-        isPublic
-      })
-      push('/')
+      if (memory) {
+        await memoryService.editMemory(memory.id, {
+          content,
+          coverUrl,
+          isPublic
+        })
+      } else {
+        await memoryService.createMemory({
+          content,
+          coverUrl,
+          isPublic
+        })
+      }
+      replace('/')
     } catch (error) {
       console.error((error as any).message)
     }
@@ -58,14 +70,15 @@ export const Form = () => {
             name="isPublic"
             id="isPublic"
             value="true"
+            defaultChecked={memory?.isPublic ?? false}
           />
           Tornar memória pública
         </label>
       </fieldset>
-      <FormMediaPicker />
+      <FormMediaPicker coverUrl={memory?.coverUrl} />
       <textarea
         name="content"
-        id=""
+        defaultValue={memory?.content ?? ''}
         spellCheck={false}
         placeholder="Fique livre para adicionar fotos, vídeos e relatos sobre essa experiência que você quer lembrar para sempre."
         className="w-full rounded flex-1 focus:ring-0 leading-relaxed text-gray-100 placeholder:text-gray-400 resize-none border-0 bg-transparent p-0 text-lg"

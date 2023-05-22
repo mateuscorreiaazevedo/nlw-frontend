@@ -1,11 +1,10 @@
-import { DeleteMemory, memoryService } from '@/modules/memories'
+import { DeleteMemory, EditMemory, memoryService } from '@/modules/memories'
 import { ArrowRight, MoreHorizontal } from 'lucide-react'
-import { EmptyMemories } from '@/modules/core'
+import { EmptyMemories, dateHelper } from '@/modules/core'
 import { cookies } from 'next/headers'
 import { Popover } from '@/main/ui'
 import Image from 'next/image'
 import Link from 'next/link'
-import dayjs from 'dayjs'
 
 export default async function Home () {
   const isAuth = cookies().has('token')
@@ -27,7 +26,7 @@ export default async function Home () {
         <div key={memory.id} className="space-y-4">
           <div className="flex items-center justify-between">
             <time className="flex font-alt items-center gap-2 text-sm text-gray-100 -ml-8 before:h-px before:w-5 before:bg-gray-50">
-              {dayjs(memory.createdAt).format('D[ de ]MMMM[, ]YYYY')}
+              {dateHelper.formatDate(memory.createdAt)}
             </time>
             <Popover
               className="bg-gray-700 rounded-lg mr-14 w-28 flex flex-col py-2"
@@ -38,6 +37,7 @@ export default async function Home () {
               }
             >
               <DeleteMemory id={memory.id} />
+              <EditMemory id={memory.id} />
             </Popover>
           </div>
 
@@ -54,9 +54,9 @@ export default async function Home () {
           <p className="text-lg leading-relaxed text-gray-100">{memory.excerpt}</p>
           <Link
             href={`/memories/${memory.id}`}
-            className="flex items-center self-start hover:gap-3 gap-2 text-sm text-gray-200 hover:text-gray-100 transition-all hover:underline"
+            className="group/more flex items-center self-start hover:gap-3 gap-2 text-sm text-gray-200 hover:text-gray-100 transition-all hover:underline"
           >
-            Ler mais <ArrowRight className="w-4 h-4" />
+            Ler mais <ArrowRight className="w-4 h-4 group-hover/more:w-5 group-hover/more:h-5" />
           </Link>
         </div>
       ))}

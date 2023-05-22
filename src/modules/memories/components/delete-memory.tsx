@@ -1,8 +1,8 @@
 'use client'
 
 import { memoryService } from '../service/memory-service'
+import { useParams, useRouter } from 'next/navigation'
 import { Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 
 type Props = {
@@ -10,11 +10,15 @@ type Props = {
 }
 
 export const DeleteMemory = ({ id }:Props) => {
-  const { refresh } = useRouter()
+  const { refresh, push } = useRouter()
+  const { id: paramsId } = useParams()
 
   async function deleteMemory () {
     try {
       await memoryService.delete(id)
+      if (paramsId) {
+        push('/')
+      }
       refresh()
     } catch (error) {
       console.error((error as any).message)

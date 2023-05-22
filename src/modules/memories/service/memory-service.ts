@@ -49,6 +49,28 @@ class MemoryService extends Service {
     }
   }
 
+  async editMemory (id: string, { content, coverUrl, isPublic }: FormMemoryProps) {
+    const response = await this.request({
+      url: `/memories/${id}`,
+      method: 'put',
+      body: {
+        content,
+        coverUrl,
+        isPublic
+      },
+      headers: {
+        Authorization: `Bearer ${token!}`
+      }
+    })
+
+    switch (response.code) {
+      case 200:
+        return response.body
+      default:
+        throw new Error('Falha no servidor, tente novamente mais tarde.')
+    }
+  }
+
   async getAll (token: string) {
     const response = await this.request<{ data: MemoryInfo[]; message?: string }>({
       url: '/memories',
@@ -83,6 +105,28 @@ class MemoryService extends Service {
     switch (response.code) {
       case 200:
         return response.body
+      case 400:
+        throw new Error(response.body?.message)
+      case 401:
+        throw new Error(response.body?.message)
+      case 500:
+        throw new Error(response.body?.message)
+      default:
+        throw new Error(response.code.toString())
+    }
+  }
+
+  async getById (id: string, token?: string) {
+    const response = await this.request<{data: Memory, message?: string}>({
+      url: `/memories/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    switch (response.code) {
+      case 200:
+        return response.body?.data
       case 400:
         throw new Error(response.body?.message)
       case 401:
