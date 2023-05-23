@@ -25,7 +25,7 @@ export const DeleteMemory = ({ id }:Props) => {
     }
   }
   return (
-    <button onClick={deleteMemory} className="flex w-full justify-center items-center gap-2 py-0.5 px-1 hover:bg-gray-600 cursor-pointer transition-colors">
+    <button onClick={deleteMemory} className="flex w-full justify-center px-4 items-center gap-2 py-0.5 hover:bg-gray-600 cursor-pointer transition-colors">
       <Trash className="w-4 h-4 text-red-500" />
       Deletar
     </button>
